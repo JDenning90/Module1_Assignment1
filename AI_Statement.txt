@@ -1,0 +1,21 @@
+AI Statement of use
+
+When submitting your assessment, you must include the following declaration, ticking all that apply:
+
+AI-supported/AI-integrated use is permitted in this assessment. I acknowledge the following uses of GenAI tools in this assessment:
+
+[  ]        I have used GenAI tools for developing ideas.
+ [  ]        I have used GenAI tools to assist with research or gathering information.
+ [x ]        I have used GenAI tools to help me understand key theories and concepts.
+ [  ]        I have used GenAI tools to identify trends and themes as part of my data analysis.
+ [  ]        I have used GenAI tools to suggest a plan or structure for my assessment.
+ [ X ]        I have used GenAI tools to give me feedback on a draft.
+ [  ]        I have used GenAI tool to generate images, figures or diagrams.
+ [ X ]        I have used GenAI tools to proofread and correct grammar or spelling errors.
+ [  ]        I have used GenAI tools to generate citations or references.
+ [  ]        Other [please specify].
+ [  ]        I have not used any GenAI tools in preparing this assessment.
+
+I declare that I have referenced use of GenAI outputs within my assessment in line with the University referencing guidelines.
+
+Please note: Submitting your work without an accompanying declaration, or one with no ticked boxes, will be considered a declaration that you have not used generative AI in preparing your work. 
