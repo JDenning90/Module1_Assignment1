@@ -1,1 +1,25 @@
-Loading tables
+-- Loading tables
+
+-- creat database
+CREATE DATABASE health_data
+
+-- create hospitals table
+
+CREATE TABLE hospitals(
+hospital_id INT unsigned NOT NULL AUTO_INCREMENT,
+hospital_name VARCHAR(150),
+address VARCHAR(150),
+size INT NOT NULL,
+type VARCHAR(100),
+accreditation_status VARCHAR(100),
+PRIMARY KEY (hospital_id)
+);
+
+-- Add data to table
+LOAD DATA LOCAL INFILE '/home/ubuntu/Module1_Assignment1/hospitals.csv' 
+INTO TABLE hospitals 
+FIELDS TERMINATED BY ',' 
+IGNORE 1 LINES (hospital_id,name,address,size,type,accreditation_status)
+SET hospital_name = name, hospital_address = address;
+
+
