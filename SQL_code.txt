@@ -113,4 +113,58 @@ LINES TERMINATED BY '\n'
 IGNORE 1 LINES (prescription_id,patient_id,doctor_id,medication,prescription_date)
 
 
+-- Questions:
+-- 1 Print a list of all doctors based at a particular hospital
+
+SELECT doctor_id, doctor_name 
+FROM doctors
+WHERE hospital_id = 5
+
+-- 2 Print a list of all prescriptions for a particular patient, ordered by the prescription date
+SELECT 
+prescription_id,
+medication,
+prescription_date
+FROM prescriptions
+WHERE patient_id = 370
+ORDER BY prescription_date;
+
+-- 3 Print a list of all prescriptions that a particular doctor has prescribed
+SELECT
+prescription_id,
+medication,
+prescription_date
+FROM prescriptions
+WHERE doctor_id = 68;
+
+-- 4 Add a new patient to the database, including being registered with one of the doctors
+INSERT INTO patients (patient_name, date_of_birth, address, role, doctor_id)
+VALUES('Jess Denning', '1990-07-10','123 Address St, Bristol','Patient',68);
+
+-- 5 Identify which doctor has made the most prescriptions
+SELECT 
+doctors.doctor_id,
+doctors.doctor_name AS doctor_name,
+COUNT(prescriptions.prescription_id) AS rx_count
+FROM doctors
+JOIN prescriptions
+ON doctors.doctor_id = prescriptions.doctor_id
+GROUP BY doctors.doctor_id, doctors.doctor_name
+ORDER BY rx_count DESC;
+
+-- 6 Print a list of all doctors at the hospital with biggest size (number of beds)
+
+SELECT 
+doctors.doctor_id,
+doctors.doctor_name AS doctor_name,
+hospitals.hospital_name AS hospital_name,
+hospitals.size
+FROM doctors
+JOIN hospitals
+ON doctors.hospital_id = hospitals.hospital_id
+WHERE hospitals.size = (
+SELECT MAX(size)
+FROM hospitals
+);
+
 
