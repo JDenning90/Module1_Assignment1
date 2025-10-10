@@ -1,9 +1,9 @@
 -- Loading tables
 
--- creat database
+-- create database
 CREATE DATABASE health_data
 
--- create hospitals table
+-- Create hospitals table
 
 CREATE TABLE hospitals(
 hospital_id INT unsigned NOT NULL AUTO_INCREMENT,
@@ -15,7 +15,7 @@ accreditation_status VARCHAR(100),
 PRIMARY KEY (hospital_id)
 );
 
--- Add data to table
+-- Add data to hospitals table
 LOAD DATA LOCAL INFILE '/home/ubuntu/Module1_Assignment1/hospitals.csv' 
 INTO TABLE hospitals 
 FIELDS TERMINATED BY ',' 
@@ -30,8 +30,87 @@ size = @csv_size,
 type = @csv_type,
 accreditation_status = @csv_accreditation_status;
 
---
+-- Create doctors table
 
+CREATE TABLE doctors (
+    doctor_id INT unsigned NOT NULL AUTO_INCREMENT,
+    doctor_name VARCHAR(150),
+    date_of_birth DATE,
+    address VARCHAR(150),
+    role VARCHAR(50),
+    hospital_id INT unsigned NOT NULL,
+PRIMARY KEY (doctor_id),
+FOREIGN KEY (hospital_id) REFERENCES hospitals(hospital_id)
+);
+
+-- Add data to doctors table
+
+LOAD DATA LOCAL INFILE '/home/ubuntu/Module1_Assignment1/doctors.csv' 
+INTO TABLE doctors 
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES (@csv_person_id,@csv_name,@csv_date_of_birth,@csv_address,@csv_role,@csv_hospital_id)
+SET 
+doctor_id = @csv_person_id, 
+doctor_name = @csv_name,
+date_of_birth = @csv_date_of_birth,
+address = @csv_address,
+role = @csv_role,
+hospital_id = @csv_hospital_id;
+
+-- Create patients table
+CREATE TABLE patients (
+    patient_id INT unsigned NOT NULL AUTO_INCREMENT,
+    patient_name VARCHAR(150),
+    date_of_birth DATE,
+    patient_address VARCHAR(150),
+    role VARCHAR(50),
+    doctor_id INT unsigned NOT NULL,
+PRIMARY KEY (patient_id),
+FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
+);
+
+-- Change column name from patient address to address
+ALTER TABLE patients
+RENAME COLUMN patient_address TO address;
+
+-- Add data to patients table 
+
+LOAD DATA LOCAL INFILE '/home/ubuntu/Module1_Assignment1/patients.csv' 
+INTO TABLE patients
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES (@csv_person_id,@csv_name,@csv_date_of_birth,@csv_address,@csv_role,@csv_doctor_id)
+SET 
+patient_id = @csv_person_id, 
+patient_name = @csv_name,
+date_of_birth = @csv_date_of_birth,
+address = @csv_address,
+role = @csv_role,
+doctor_id = @csv_doctor_id;
+
+-- Create prescriptions table 
+
+CREATE TABLE prescriptions (
+    prescription_id INT unsigned NOT NULL AUTO_INCREMENT,
+    patient_id INT unsigned NOT NULL,
+    doctor_id INT unsigned NOT NULL,
+    medication VARCHAR(150),
+    prescription_date DATE,
+PRIMARY KEY (prescription_id),
+FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id),
+FOREIGN KEY (patient_id) REFERENCES patients(patient_id)
+);
+
+-- Add data to prescriptions table
+LOAD DATA LOCAL INFILE '/home/ubuntu/Module1_Assignment1/prescriptions.csv' 
+INTO TABLE prescriptions
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES (prescription_id,patient_id,doctor_id,medication,prescription_date)
 
 
 
