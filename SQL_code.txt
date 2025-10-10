@@ -19,7 +19,13 @@ PRIMARY KEY (hospital_id)
 LOAD DATA LOCAL INFILE '/home/ubuntu/Module1_Assignment1/hospitals.csv' 
 INTO TABLE hospitals 
 FIELDS TERMINATED BY ',' 
-IGNORE 1 LINES (hospital_id,name,address,size,type,accreditation_status)
-SET hospital_name = name, hospital_address = address;
+IGNORE 1 LINES (@csv_hospital_id,@csv_name,@csv_address,@csv_size,@csv_type,@csv_accreditation_status)
+SET 
+hospital_id = @csv_hospital_id,
+hospital_name = @csv_name, 
+address = @csv_address,
+size = @csv_size,
+type = @csv_type,
+accreditation_status = @accreditation_status;
 
 
